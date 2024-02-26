@@ -1,3 +1,2 @@
-
-console.log("Hello I'm Alex");
-alert("Hello world");
+// Linking external .js file
+alert("Hello everyone");

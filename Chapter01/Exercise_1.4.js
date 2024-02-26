@@ -1,8 +1,7 @@
-let a = 10; // assign a value of 10 to variable a
-console.log(a); // This will output 10 into the console
+let a = 10; // declared a with value of 10
+
+console.log(a); // Get output in the console
 
 /*
-This is a multi-line 
-Comment
+    This is multi-line comment
 */
-
