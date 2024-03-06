@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="output"></div>
+
+    <script>
+        const pageElement = document.querySelector('.output');
+        pageElement.textContent = "Hello";
+        pageElement.classList.add("red");
+        pageElement.id = "tester";
+        pageElement.style.backgroundColor = "red";
+        console.log(document.URL);
+    
+    	pageElement.textContent = document.URL;
+    </script>
+    
+</body>
+</html>
