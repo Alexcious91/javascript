@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const message = document.querySelector("#message");
+        // List of arrays
+        const myArray = ["Themba", "Mandy", "Andy", "Alex", "John", "Donald", "Palise", "Janet", "Jane"];
+        // Invoke function
+        build();
+        //addClicks();
+        function build() {
+            let html = "<h1>Friends Table</h1><table>";
+            myArray.forEach((item, index) => {
+                html +=
+                    `<tr class="box" data-row="${index+1}" data-name="${item}" onclick="getData(this)"><td>${item}</td>`;
+                html += `<td >${index + 1}</td></tr>`;
+            });
+            html += "</table>";
+            document.getElementById("output").innerHTML = html;
+        }
+
+        function getData(el) {
+            let temp = el.getAttribute("data-row");
+            let tempName = el.getAttribute("data-name");
+            message.innerHTML = `${tempName } is in row #${temp}`;
+        }
+    </script>
+</body>
+</html>
