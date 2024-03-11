@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Course</title>
+		<style>
+			.hide {
+				display: none;
+			}
+			.error {
+				color: red;
+				font-size: 0.8em;
+				font-family: sans-serif;
+				font-style: italic;
+			}
+			input {
+				border-color: #ddd;
+				width: 400px;
+				display: block;
+				font-size: 1.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<form name="myform">
+			Email : <input type="text" name="email" />
+			<span class="error hide"></span>
+			<br />
+			Password : <input type="password" name="password" />
+			<span class="error hide"></span> <br />
+			User Name : <input type="text" name="userName" />
+			<span class="error hide"></span>
+			<br />
+		</form>
+
+		<script>
+			// Step 1: Selecting page elements
+			const allPageElements = document.querySelectorAll("*");
+			const errorElements = document.querySelectorAll(".error");
+
+			// Step 2: Adding event listener to submit
+			document
+				.querySelector("form")
+				.addEventListener("submit", function (event) {
+					// Step 3: Loop through error elements and hide them
+					errorElements.forEach((element) =>
+						element.classList.add("hide")
+					);
+
+					// Step 4: Testing email field against regex
+					validateField("email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+
+					// Step 7: Checking password field
+					validateField(
+						"password",
+						/^[a-zA-Z0-9]{3,8}$/,
+						"Password must be 3-8 characters and only contain letters and numbers."
+					);
+
+					// Step 8: Tracking form data
+					const formData = {};
+					document.querySelectorAll("input").forEach((input) => {
+						formData[input.name] = input.value;
+					});
+
+					// Step 9: Submitting form if no errors
+					if (!errorPresent) {
+						console.log("Form submitted:", formData);
+					}
+
+					// Preventing default form action
+					event.preventDefault();
+				});
+
+			// Step 5: Error handling function
+			let errorPresent = false; // Boolean to track errors
+
+			function validateField(
+				fieldName,
+				regex,
+				message = "Invalid input"
+			) {
+				const inputElement = document.querySelector(
+					`input[name="${fieldName}"]`
+				);
+				const errorElement = inputElement.nextElementSibling;
+
+				if (!regex.test(inputElement.value)) {
+					errorElement.textContent = message;
+					errorElement.classList.remove("hide");
+					inputElement.focus();
+					errorPresent = true;
+				}
+			}
+		</script>
+	</body>
+</html>

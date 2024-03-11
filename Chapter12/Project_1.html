@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<textarea name="txtarea" rows="2" cols="50"></textarea>
+		<button>Get Emails</button>
+		<textarea name="txtarea2" rows="2" cols="50"></textarea>
+
+		<script>
+			// Step 1: Select elements and set them as JavaScript objects
+			const textarea1 = document.querySelector(
+				'textarea[name="txtarea"]'
+			);
+			const textarea2 = document.querySelector(
+				'textarea[name="txtarea2"]'
+			);
+			const button = document.querySelector("button");
+
+			// Step 2: Add event listener to the button
+			button.addEventListener("click", extractAndFilterEmails);
+
+			// Step 3-6: Extract and filter email addresses
+			function extractAndFilterEmails() {
+				// Step 3: Get content of the first textarea and filter for email addresses
+				const content = textarea1.value;
+				const emailArray =
+					content.match(
+						/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g
+					) || [];
+
+				// Step 4-6: Remove duplicates and output to the second textarea
+				const uniqueEmails = [];
+				emailArray.forEach((email) => {
+					if (!uniqueEmails.includes(email)) {
+						uniqueEmails.push(email);
+					}
+				});
+
+				// Output to the second textarea
+				textarea2.value = uniqueEmails.join("\n");
+			}
+		</script>
+	</body>
+</html>
