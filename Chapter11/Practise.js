@@ -1,0 +1,1 @@
+document.getElementById("unique").onclick = function() { magic(); }

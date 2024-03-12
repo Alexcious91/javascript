@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container"></div>
+
+    <script>
+        const container = document.querySelector(".container");
+        container.textContent = "Hello world";
+        container.style.height = "100px";
+        container.style.width = "100px";
+        container.style.backgroundColor = "blue";
+
+        function changeColor(color, event) {
+            console.log(color, event);
+            container.style.backgroundColor = color;
+        }
+
+        container.addEventListener("mousedown", (event) => {
+            changeColor("green", event);
+        });
+        container.addEventListener("mouseover", (event) => changeColor("red", event));
+    </script>
+</body>
+</html>
