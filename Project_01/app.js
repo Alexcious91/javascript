@@ -1,38 +1,115 @@
-const inputItem = document.querySelector("input");
-const btnAdd = document.querySelector("#addItem");
-const btnDelete = document.querySelector("#deleteItem");
+const inputItem = document.querySelector("input"); // get input
+const btnAdd = document.querySelector("#addItem"); // button to add items
+const btnRemove = document.getElementById("deleteItem"); // button to delete items
+const btnRetrieve = document.querySelector("#getItem"); // button to retrieve items
 const errorMessage = document.querySelector("#errorMessage");
 const displayContainer = document.querySelector("#displayContainer");
 
-btnAdd.addEventListener("click", addItem);
+// Event listeners
+document.addEventListener("click", (event) => {
+    if (event.target && event.target.id === "addItem") {
+        addItem();
+    }
+
+    if (event.target && event.target.id === "getItem") {
+        getItem();
+    }
+
+    if (event.target && event.target.id === "deleteItem") {
+        removeItem();
+    }
+});
+
+// btnAdd.addEventListener("click", addItem);
+// btnRemove.addEventListener("click", removeItem);
+// btnRetrieve.addEventListener("click", getItem);
 
 let items = [];
 
+// Add items to local storage
 function addItem() {
-    const newItem = inputItem.value.trim();
+	const newItem = inputItem.value.trim();
 
-    if (newItem === "") {
-        errorMessage.textContent = "Please enter a valid item";
-        return;
-    }
+	if (newItem === "") {
+		errorMessage.textContent = "Please enter a valid item";
+		return;
+	}
 
-    if (items.includes(newItem)) {
-        errorMessage.textContent = "Item already in the list";
-        return;
-    }
+	if (items.includes(newItem)) {
+		errorMessage.textContent = "Item already in the list";
+		return;
+	}
 
-    const li = document.createElement("li");
-    li.innerHTML = `<li class="d-flex border justify-content-between align-items-center p-2 my-2">
+	const li = document.createElement("li");
+	li.innerHTML = `<li class="d-flex border justify-content-between align-items-center p-2 my-2">
             <div class="d-flex">
             <input type="checkbox" class="mx-2 cursor-pointer">
             <span class="fs-13">${newItem}</span>
             </div>
-            <i class="trash-icon bi bi-trash mx-2 fs-16 cursor-pointer" id="deleteItem"></i>
-        </li>`
-    ;
-    displayContainer.appendChild(li);
+            <i class="trash-icon bi bi-trash mx-2 fs-16 cursor-pointer" id="deleteItem" onclick="deleteItem()"></i>
+        </li>`;
+	displayContainer.appendChild(li);
+	items.push(newItem); // Push items into global array
+	inputItem.value = ""; // Clear input after adding
 
-    items.push(newItem);
-    errorMessage.textContent = "Item added succesfully.";
-    inputItem.value = "";
+	errorMessage.textContent = "Item added succesfully.";
+
+    // Store items in local storage
+	(function storeData() {
+		localStorage.setItem("ShoppingList", `${JSON.stringify(items)}`);
+	})();
+}
+
+// Retrive items from local storage
+function getItem() {
+    // displayContainer.innerHTML = ""; // Clear existing data before retriveing
+	const storedItems = localStorage.getItem("ShoppingList");
+	const storedItemsArray = JSON.parse(storedItems); // parse from strings to an object
+
+    if (storedItemsArray.length > 0) {
+        let alreadyRetrievedItems = true;
+        // Iterate through each items in local storage
+        storedItemsArray.forEach(item => {
+            if (!items.includes(item)) { // If they're not in an array = create them
+                alreadyRetrievedItems = false;
+                const li = createListItem(item);
+                displayContainer.appendChild(li);
+                items.push(item);
+            }
+        });
+
+        if (alreadyRetrievedItems) {
+            errorMessage.textContent = "Items already retrieved.";
+            // errorMessage.style.color = "#000";
+        } else {
+            errorMessage.textContent = "Items retrieved succesfully.";
+        }
+        // errorMessage.style.color = "green";
+    } 
+}
+
+// delete items in the localStorage
+function removeItem() {
+    const storedItems = localStorage.getItem("ShoppingList");
+	const storedItemsArray = JSON.parse(storedItems); // parse from strings to an object
+
+    localStorage.removeItem("ShoppingList");
+    // Prototype
+    console.log("Item deleted from database.")
+    errorMessage.textContent = "Item dleted succesfully."
+}
+
+// Function to create <li> tag
+function createListItem(item) {
+    const li = document.createElement("li");
+    li.classList.add("d-flex", "border", "justify-content-between", "align-items-center", "p-2", "my-2");
+    li.innerHTML = 
+        `<div class="d-flex">
+            <input type="checkbox" class="mx-2 cursor-pointer">
+            <span class="fs-13">${item}</span>
+        </div>
+        <i class="trash-icon bi bi-trash mx-2 fs-16 cursor-pointer deleteItem"></i>
+    `;
+
+    return li; 
 }

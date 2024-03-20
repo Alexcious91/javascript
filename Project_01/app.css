@@ -10,6 +10,16 @@ input {
     font-size: 12px !important;
 }
 
+.getItems {
+    font-size: 12px !important;
+}
+
+.trash-icon {
+    font-size: 12px !important;
+    cursor: pointer;
+    color: red;
+}
+
 .fs-12 {
     font-size: 12px !important;
 }
@@ -43,7 +53,3 @@ li:hover {
     padding: 15px;
 }
 
-.trash-icon {
-    cursor: pointer;
-    color: red;
-  }
