@@ -1,0 +1,50 @@
+body {
+    font-family: sans-serif;
+}
+
+header {
+    text-align: center;
+}
+
+.container {
+    margin: 0 35px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    border-radius: 15px;
+    width: 500px;
+    padding: 4px 12px;
+    border: 1px solid #ccc;
+}
+
+form input {
+    margin-top: 14px;
+    width: 98%;
+    padding: 8px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    margin: 15px 0 15px 0;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #ccc;
+    color: #000;
+}
+
+/* 
+    Confirm.html
+*/
+
+span {
+    font-size: 20px;
+}
