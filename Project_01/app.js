@@ -41,7 +41,7 @@ function addItem() {
 	items.push(newItem); // Push items into global array
 	inputItem.value = ""; // Clear input after adding
 
-	errorMessage.textContent = "Item added succesfully.";
+    showSuccess("Item added succesfully.");
 
     // Store items in local storage
 	(function storeData() {
@@ -55,7 +55,7 @@ function getItem() {
 	const storedItems = localStorage.getItem("ShoppingList");
 	const storedItemsArray = JSON.parse(storedItems); // parse from strings to an object
 
-    if (storedItemsArray.length > 0) {
+    if (storedItemsArray) {
         let alreadyRetrievedItems = true;
         // Iterate through each items in local storage
         storedItemsArray.forEach(item => {
@@ -68,14 +68,16 @@ function getItem() {
         });
 
         if (alreadyRetrievedItems) {
-            errorMessage.textContent = "Items already retrieved.";
+            showSuccess("Items already retrieved.");
             // errorMessage.style.color = "#000";
         } else {
-            errorMessage.textContent = "Items retrieved succesfully.";
+            showSuccess("Items retrieved succesfully.");
         }
-        // errorMessage.style.color = "green";
-    } else {
-        errorMessage.textContent = "There are no items to retrieve";
+    }
+
+    // Check if there are items to retrieve
+    if (!storedItemsArray) {
+        showError("There are no items to retrieve");
     }
 }
 
@@ -84,10 +86,15 @@ function removeItem() {
     const storedItems = localStorage.getItem("ShoppingList");
 	const storedItemsArray = JSON.parse(storedItems); // parse from strings to an object
 
-    localStorage.removeItem("ShoppingList");
     // Prototype
     console.log("Item deleted from database.")
-    errorMessage.textContent = "Item dleted succesfully."
+    // Check if there items to delete first
+    if (storedItemsArray) {
+        localStorage.removeItem("ShoppingList");
+        errorMessage.textContent = "Items deleted succesfully."
+    } else {
+        showError("There are no items to delete.")
+    }
 }
 
 // Function to create <li> tag
@@ -99,14 +106,17 @@ function createListItem(item) {
             <input type="checkbox" class="mx-2 cursor-pointer">
             <span class="fs-13">${item}</span>
         </div>
-        <i class="trash-icon bi bi-trash mx-2 fs-16 cursor-pointer deleteItem"></i>
     `;
 
     return li; 
 }
 
-// To-do
-/**
- * Remove redundant code 
- * - Create function for error messages
- */
+// function for success operation
+function showSuccess(message) {
+    errorMessage.textContent = message;
+}
+
+// function for success operation
+function showError(message) {
+    errorMessage.textContent = message;
+}

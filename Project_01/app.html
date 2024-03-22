@@ -18,7 +18,7 @@
 
             <div class="container-fluid p-3">
                 <div class="input-group mb-5">
-                    <input type="text" class="form-control rounded-0 px-3 fs-12" placeholder="Enter item">
+                    <input type="text" class="form-control rounded-0 px-3 fs-12" placeholder="Enter task">
                     
                     <button class="btnAdd btn btn-primary rounded-0" id="addItem" type="button">Add task</button>
                     <button class="getItem btn btn-success rounded-0" id="getItem" type="button">Get tasks</button>
@@ -26,7 +26,10 @@
                 </div>
 
                 <div class="bg-light mt-5 p-2">
-                    <h3 class="lead text-center mt-2">Tasks</h3>
+                    <div class="justify-content-center">
+                        <h3 class="lead text-center mt-2">Tasks</h3>
+                        <button class="lead btn btn-danger justify-content-end fs-12" id="deleteItem">Delete all items</button>
+                    </div>
                     
                     <ul class="p-0" id="displayContainer"></ul>
                 </div>
