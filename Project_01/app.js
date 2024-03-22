@@ -20,15 +20,11 @@ document.addEventListener("click", (event) => {
     }
 });
 
-// btnAdd.addEventListener("click", addItem);
-// btnRemove.addEventListener("click", removeItem);
-// btnRetrieve.addEventListener("click", getItem);
-
 let items = [];
 
 // Add items to local storage
 function addItem() {
-	const newItem = inputItem.value.trim();
+	const newItem = inputItem.value.trim(); // Remove whitespace
 
 	if (newItem === "") {
 		errorMessage.textContent = "Please enter a valid item";
@@ -40,14 +36,7 @@ function addItem() {
 		return;
 	}
 
-	const li = document.createElement("li");
-	li.innerHTML = `<li class="d-flex border justify-content-between align-items-center p-2 my-2">
-            <div class="d-flex">
-            <input type="checkbox" class="mx-2 cursor-pointer">
-            <span class="fs-13">${newItem}</span>
-            </div>
-            <i class="trash-icon bi bi-trash mx-2 fs-16 cursor-pointer" id="deleteItem" onclick="deleteItem()"></i>
-        </li>`;
+    let li = createListItem(newItem)
 	displayContainer.appendChild(li);
 	items.push(newItem); // Push items into global array
 	inputItem.value = ""; // Clear input after adding
@@ -85,7 +74,9 @@ function getItem() {
             errorMessage.textContent = "Items retrieved succesfully.";
         }
         // errorMessage.style.color = "green";
-    } 
+    } else {
+        errorMessage.textContent = "There are no items to retrieve";
+    }
 }
 
 // delete items in the localStorage
@@ -113,3 +104,9 @@ function createListItem(item) {
 
     return li; 
 }
+
+// To-do
+/**
+ * Remove redundant code 
+ * - Create function for error messages
+ */
